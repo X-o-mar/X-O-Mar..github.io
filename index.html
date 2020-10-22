@@ -12,7 +12,7 @@
 body
 {
 margin:0%; padding:0%;
-
+background: url("background.png");
 }
    
 .header
@@ -25,7 +25,7 @@ text-align:center;
 display: block;
 }
 
-.stand
+.stand-box
 {  
 font-size: 30px;
 font-style:italic;
@@ -36,9 +36,20 @@ text-align: center;
 text-decoration:none
 margin-top: 20px;
 }
-          
-           
-          
+        
+.stand-container
+{  
+font-size: 30px;
+font-style:italic;
+font-weight: bold;
+display: block;
+color: #fff;
+text-align: center;
+margin-top: 20px;
+border:2px white;
+}           
+
+
 .logo
 {
 width:100px;
@@ -60,26 +71,43 @@ position:absolute;
   
 }
      
+.box-container
+{
+width: 33%;
+height: auto;
+background: #000000; /* 0f0f0f */
+margin-top: 110px;
+margin-left: auto;
+margin-right: auto;
+border-radius: 22px;
+display: block;
+border:2px white;
+border-style: solid;
+}
 
+.box-container :hover {
+  color: #6ed5a5;
+}
 .box 
 {
-  width: 60%;
-  height: 80px;
-  background: #0f0f0f;
-  margin-top: 110px;
+  width: 30%;
+  height: auto;
+  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 22px
+  border-radius: 22px;
+  display:none;
+  background: #000000;
+  display: none;
+  border:2px white;
+  border-style: solid;
 }
 
-.box:hover {
-  background-color: #242323;
-  cursor: pointer;
-  -webkit-transition: background-color 2s ease-out;
-  -moz-transition: background-color 2s ease-out;
-  -o-transition: background-color 2s ease-out;
-  transition: background-color 2s ease-out;
+.box :hover {
+  color: #6ed5a5;
 }
+
+
 .type_effect h1 {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
   border-right: .15em solid orange; /* The typwriter cursor */
@@ -129,14 +157,12 @@ position:absolute;
       
       
       
-    
-  <body    style="background:url('background.png'); background-repeat: no-repeat; background-size: 100% 915%  " > </body> 
-    
-    <body>
-          <script src="jquery-3.3.1.min.js"></script>    
+<body>
+          <script src="jquery-3.3.1.min.js"></script>
+          <script src="jq.js"></script>    
           <script src="bootstrap.min.js"></script>    
 
-    <a href= https://x-o-mar.github.io/ > <img src="tic tac toe.png" class="logo" >  </a>
+<a href= https://x-o-mar.github.io/ > <img src="tic tac toe.png" class="logo" >  </a>
 
     <fieldset class="header-background">
       <div class="header" >X-O-Mar BLOG  </div>
@@ -147,11 +173,12 @@ position:absolute;
     
     
     
+<div class="box-container" id="box-container"><span class="stand-container">Vulnhub Writeups</span></div> </a>
 
-<a href="https://x-o-mar.github.io/Temple-Of-Doom"  style="text-decoration: none;"> <div class="box"><span class="stand">Vulnhub Temple Of Doom Writeup</span></div> </a>
+<a href="https://x-o-mar.github.io/Temple-Of-Doom"  style="text-decoration: none;"> <div class="box" id="box"><span class="stand-box">Temple Of Doom</span></div> </a>
 	
-	    </dev>
+	</dev>
 
 
 
-    </body>
+</body>
