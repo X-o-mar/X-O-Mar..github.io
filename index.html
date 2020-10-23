@@ -39,7 +39,7 @@ margin-top: 20px;
         
 .stand-container
 {  
-font-size: 30px;
+font-size: 25px;
 font-style:italic;
 font-weight: bold;
 display: block;
@@ -47,6 +47,7 @@ color: #fff;
 text-align: center;
 margin-top: 20px;
 border:2px white;
+margin-top: 10px;
 }           
 
 
@@ -55,10 +56,17 @@ border:2px white;
 width:100px;
 /*background: #E6E7E9; */    
 margin-top: 105px;
-left: 43.40%;
 border-radius:22px;
 position:absolute;
+margin-left: 46%;
+
 }
+@media only screen and (max-width: 600px) {
+  .logo {
+    margin-left:164px;
+  }
+}
+
 
 .header-background
 {
@@ -73,17 +81,34 @@ position:absolute;
      
 .box-container
 {
-width: 33%;
-height: 84px;
+width: 35%;
+height: 65px;
 background: #000000; /* 0f0f0f */
 margin-top: 110px;
-margin-left: auto;
-margin-right: auto;
+margin-left: 33%;
+
 border-radius: 22px;
-display: block;
 border:2px white;
 border-style: solid;
 }
+
+@media only screen and (max-width: 600px) {
+  .box-container {
+    width: 35%;
+    height: 90px;
+    background: #000000;
+    margin-top: 110px;
+    margin-left: 33%;
+
+    border-radius: 22px;
+    border:2px white;
+    border-style: solid;
+  }
+}
+/*)
+{
+}
+*/
 
 .box-container :hover {
   color: #6ed5a5;
@@ -101,6 +126,19 @@ border-style: solid;
   border:2px white;
   border-style: solid;
 }
+@media only screen and (max-width: 600px) {
+  .temple-of-doom {
+    width: 70%;
+    height: auto;
+    background: #000000;
+    margin-top: 10px;
+    margin-left: 7%;
+    border-radius: 22px;
+    border:2px white;
+    border-style: solid;
+  }
+}
+
 
 .temple-of-doom :hover {
   color: #6ed5a5;
@@ -130,6 +168,19 @@ border-style: solid;
   border:2px white;
 
   border-style: solid;
+}
+
+@media only screen and (max-width: 600px) {
+  .len-security {
+    width: 95%;
+    height: 100px;
+    background: #000000;
+    margin-top: -95px;
+    margin-left: 140%;
+    border-radius: 22px;
+    border:2px white;
+    border-style: solid;
+  }
 }
 
 .len-security :hover{
