@@ -1,7 +1,9 @@
 $(document).ready(function(){
 	$("#box-container").click(function(){
-		$("#box").toggle("slow");
+		$("#temple-of-doom").toggle("slow");
 	});
-
+	$("#box-container").click(function(){
+		$("#len-security").toggle("slow");
+	});
 });
 
