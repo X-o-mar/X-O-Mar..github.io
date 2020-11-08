@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html >
+    
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="HandheldFriendly" content="true">
+<link rel="stylesheet" href="bootstrap.css">
+<style>
+
+body
+{
+margin:0%; padding:0%;
+background: url("background.png");
+}
+   
+.header
+{
+color: #6ed5a5;
+font-size: 30px;
+font-style:italic;
+font-weight: bold;
+text-align:center;
+display: block;
+margin-bottom:-23px;
+}     
+          
+.logo
+{
+width:100px;
+/*background: #E6E7E9; */    
+margin-top: 105px;
+border-radius:22px;
+position:absolute;
+margin-left: 46%;
+
+}
+@media only screen and (max-width: 600px) {
+  .logo {
+    margin-left:164px;
+  }
+}
+
+.header-background
+{
+  background: #000000;
+  display: block;
+  border-radius: 50px;
+  border:2px white;
+  border-style: solid;
+  margin-top: 10px;
+  height: 73px;
+}
+     
+
+
+
+.type_effect h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .02em; /* Adjust as needed */
+  animation: typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+.slide_writing {
+  display: flex;
+  justify-content: center;
+  color: #6ed5a5;
+}
+.typewriter h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .30em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  font-size: 35px;
+  letter-spacing: .02em; /* Adjust as needed */
+  animation: 
+    typing 2.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+.article{
+  width: 90%;
+  height: 10%;
+  box-shadow: 1px 2px 7px 3px white;
+  margin-left: 5%;
+  margin-top: 110px;
+  border-radius: 22px;
+  background: #131310;
+}
+.article-heading{
+  font-family: "Times New Roman", Times, serif;
+  color: white;
+  margin-left: 10px;
+  font-size: 40px;
+}
+.article-content
+{
+  font-family:sohne, "Times New Roman", Times, serif;
+  color: white;
+  margin-left: 5px;
+  font-size: 28px;
+
+}
+.article-images{
+width:68%;
+margin:20px 0;
+border-radius:13px;
+vertical-align: middle;
+margin-left: 50px;
+}
+@media only screen and (max-width: 600px) {
+.article-images{
+width:76%;
+margin:20px 0;
+border-radius:13px;
+vertical-align: middle;
+margin-left: 50px;
+  }
+}
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #6ed5a5; }
+}
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #6ed5a5; }
+}
+        </style>
+      
+      
+      
+    
+    
+    <body>
+          <script src="jquery-3.3.1.min.js"></script>    
+          <script src="bootstrap.min.js"></script>    
+
+      <title>Troll_1 Write Up</title>
+
+    <a href= https://x-o-mar.github.io/ > <img src="tic tac toe.png" class="logo" >  </a>
+
+    <fieldset class="header-background">
+      <div class="header" >X-o-Mar BLOG  </div>
+     <div class=slide_writing>
+     <div class="typewriter"><h1>Troll 1</h1></div>
+     </div>
+    </fieldset>
+    
+    
+<article class="article">
+  <h1 class="article-heading">Vulnhub Troll 1</h1>
+  <p class="article-content">
+  	
+Difficulty: Easy<br>
+<br>
+Link: https://www.vulnhub.com/entry/<br>tr0ll-1,100/<br>
+<br>
+I started the machine with scanning for the ip of the machine using netdiscover <br>
+
+<br>
+=> netdiscover -r 192.168.1.1/24<br>
+
+<img src="/pic/netdiscover.png" class="article-images"><br>
+
+<br>
+then i scanned the open port using nmap <br> 
+<br>
+=> nmap -sC -sV -p- 192.168.1.104 -oN nmap
+
+<img src="/pic/nmap.png" class="article-images"><br>
+
+first i tried to login on ftp using anonymous username and password
+and it worked.<br>
+ 
+i found only one file with extention of .pcap 
+<img src="/pic/ftp.png" class="article-images"><br>
+
+and by analyzing it with wireshark i found a hidden massege 
+
+<img src="/pic/wireshark.png" class="article-images"><br>
+
+so i noted it and moved on to the port 80
+
+<img src="/pic/webpage.png" class="article-images"><br>
+
+by looking at robots.txt directory i found there is hidden called /secret
+
+<img src="/pic/secret.png" class="article-images"><br>
+
+but there was only a photo and didn't even found anything in the page source
+
+<img src="/pic/inside_secret.png" class="article-images"><br>
+
+i tried to bruteforce the secret directory using wfuzz but got nothing.<br>
+<br>
+Then i remembered the note i toke
+so i tried sup3rs3cr3tdirlol instead of secret and there was a executable file<br>
+
+<img src="/pic/address.png" class="article-images"><br>
+
+so i got it on my machine and when i ran it to find another message
+
+<img src="/pic/another_directory.png" class="article-images"><br>
+
+so i used the address 0x0856BF instead of sup3rs3cr3tdirlol to find two new folders <br>
+<br>
+the first one called good luck and contains a file with name of users 
+
+<img src="/pic/users.png" class="article-images"><br>
+
+and the secound one called this folder contain the password. it was tricky cause the file name (pass.txt) was the password not what the file contain :)
+
+<img src="/pic/pass.png" class="article-images"><br>
+
+i used hydra to brute force the 10 usernames i got<br>
+<br>
+=> hydra -L users.txt -p Pass.txt 192.168.1.104 -t 4 ssh
+
+<img src="/pic/hydra.png" class="article-images"><br>
+
+and i got a hit with overflow
+
+<img src="/pic/overflow.png" class="article-images"><br>
+
+after i loged in i tried sudo -l to see if i can run any service as root but overflow wasn't sudo user<br>
+<br>
+so i checked the kernal version using uname -a
+
+<img src="/pic/uname.png" class="article-images"><br>
+
+then i checked it on searchsploit
+
+=> searchsploit Linux 3.13.0 | grep -i 'ubuntu'
+
+<img src="/pic/37292.c.png" class="article-images"><br>
+
+
+so on my kali machine i opened a port using python <br>
+<br>
+python -m SimpleHTTPServer 4444<br>
+<br>
+and on the target machine i changed directory to /tmp
+and downloaded the file using wget
+
+
+<img src="/pic/wget.png" class="article-images"><br>
+
+then compiled it using gcc and ran it
+
+<img src="/pic/gcc.png" class="article-images"><br>
+
+so i got root :)
+</p>
+
+
+
+
+</article>  
+    </body>
+
+
