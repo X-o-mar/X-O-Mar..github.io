@@ -174,79 +174,79 @@ I started the machine with scanning for the ip of the machine using netdiscover 
 <br>
 => netdiscover -r 192.168.1.1/24<br>
 
-<img src="/pic/netdiscover.png" class="article-images"><br>
+<img src="./pic/netdiscover.png" class="article-images"><br>
 
 <br>
 then i scanned the open port using nmap <br> 
 <br>
 => nmap -sC -sV -p- 192.168.1.104 -oN nmap
 
-<img src="/pic/nmap.png" class="article-images"><br>
+<img src="./pic/nmap.png" class="article-images"><br>
 
 first i tried to login on ftp using anonymous username and password
 and it worked.<br>
  
 i found only one file with extention of .pcap 
-<img src="/pic/ftp.png" class="article-images"><br>
+<img src="./pic/ftp.png" class="article-images"><br>
 
 and by analyzing it with wireshark i found a hidden massege 
 
-<img src="/pic/wireshark.png" class="article-images"><br>
+<img src="./pic/wireshark.png" class="article-images"><br>
 
 so i noted it and moved on to the port 80
 
-<img src="/pic/webpage.png" class="article-images"><br>
+<img src="./pic/webpage.png" class="article-images"><br>
 
 by looking at robots.txt directory i found there is hidden called /secret
 
-<img src="/pic/secret.png" class="article-images"><br>
+<img src="./pic/secret.png" class="article-images"><br>
 
 but there was only a photo and didn't even found anything in the page source
 
-<img src="/pic/inside_secret.png" class="article-images"><br>
+<img src="./pic/inside_secret.png" class="article-images"><br>
 
 i tried to bruteforce the secret directory using wfuzz but got nothing.<br>
 <br>
 Then i remembered the note i toke
 so i tried sup3rs3cr3tdirlol instead of secret and there was a executable file<br>
 
-<img src="/pic/address.png" class="article-images"><br>
+<img src="./pic/address.png" class="article-images"><br>
 
 so i got it on my machine and when i ran it to find another message
 
-<img src="/pic/another_directory.png" class="article-images"><br>
+<img src="./pic/another_directory.png" class="article-images"><br>
 
 so i used the address 0x0856BF instead of sup3rs3cr3tdirlol to find two new folders <br>
 <br>
 the first one called good luck and contains a file with name of users 
 
-<img src="/pic/users.png" class="article-images"><br>
+<img src="./pic/users.png" class="article-images"><br>
 
 and the secound one called this folder contain the password. it was tricky cause the file name (pass.txt) was the password not what the file contain :)
 
-<img src="/pic/pass.png" class="article-images"><br>
+<img src="./pic/pass.png" class="article-images"><br>
 
 i used hydra to brute force the 10 usernames i got<br>
 <br>
 => hydra -L users.txt -p Pass.txt 192.168.1.104 -t 4 ssh
 
-<img src="/pic/hydra.png" class="article-images"><br>
+<img src="./pic/hydra.png" class="article-images"><br>
 
 and i got a hit with overflow
 
-<img src="/pic/overflow.png" class="article-images"><br>
+<img src="./pic/overflow.png" class="article-images"><br>
 
 after i loged in i tried sudo -l to see if i can run any service as root but overflow wasn't sudo user<br>
 <br>
 so i checked the kernal version using uname -a
 
-<img src="/pic/uname.png" class="article-images"><br>
+<img src="./pic/uname.png" class="article-images"><br>
 
 then i checked it on searchsploit
 
 => searchsploit Linux 3.13.0 | grep -i 'ubuntu'
 
-<img src="/pic/37292.c.png" class="article-images"><br>
+<img src="./pic/37292.c.png" class="article-images"><br>
 
 
 so on my kali machine i opened a port using python <br>
@@ -257,11 +257,11 @@ and on the target machine i changed directory to /tmp
 and downloaded the file using wget
 
 
-<img src="/pic/wget.png" class="article-images"><br>
+<img src="./pic/wget.png" class="article-images"><br>
 
 then compiled it using gcc and ran it
 
-<img src="/pic/gcc.png" class="article-images"><br>
+<img src="./pic/gcc.png" class="article-images"><br>
 
 so i got root :)
 </p>
