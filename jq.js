@@ -8,5 +8,8 @@ $(document).ready(function(){
 	$("#box-container").click(function(){
 		$("#Troll1").toggle("slow");
 	});
+	$("#box-container").click(function(){
+		$("#Troll2").toggle("slow");
+	});
 });
 
